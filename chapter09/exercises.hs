@@ -1,5 +1,7 @@
 module Exercises where
 
+import Data.Char
+
 safeTail :: [a] -> Maybe [a]
 safeTail []     = Nothing
 safeTail (_:[]) = Nothing
@@ -62,3 +64,39 @@ myCube = [y^3 | y <- [1..5]]
 
 sqrCubeTuples :: (Num a, Enum a, Ord a) => [(a, a)]
 sqrCubeTuples = [(x, y) | x <- mySqr, y <- myCube, x < 50, y < 50]
+
+-- -----------------------------------------
+
+multipleOf :: Integral a => a -> a -> Bool
+multipleOf x y = (rem y x) == 0
+
+-- usage: filter (multipleOf 3) [1..30]
+
+isArticle :: String -> Bool
+isArticle x = x `elem` ["a", "an", "the"]
+
+-- usage: (filter (not . isArticle)) . myWords $ "the brown dog was a goof"
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] _ = []
+zipWith' _ _ [] = []
+zipWith' f (x:xs) (x':xs') = (f x x') : zipWith' f xs xs'
+
+zip' :: [a] -> [b] -> [(a, b)]
+zip' = zipWith' (\x y -> (x, y))
+
+-- -----------------------------------------
+
+strtoupper :: String -> String
+strtoupper = map toUpper
+
+strtoupper' :: String -> String
+strtoupper' "" = ""
+strtoupper' (x:xs) = toUpper x : strtoupper' xs
+
+ucfirst :: String -> String
+ucfirst "" = ""
+ucfirst (x:xs) = toUpper x : xs
+
+capFirst :: String -> Char
+capFirst = toUpper . head
