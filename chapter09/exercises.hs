@@ -100,3 +100,67 @@ ucfirst (x:xs) = toUpper x : xs
 
 capFirst :: String -> Char
 capFirst = toUpper . head
+
+-- -----------------------------------------
+
+myAnd :: [Bool] -> Bool
+myAnd [] = True
+myAnd (x:xs) = x && myAnd xs
+
+myOr :: [Bool] -> Bool
+myOr [] = False
+myOr (x:xs) = x || myOr xs
+
+myAny :: (a -> Bool) -> [a] -> Bool
+myAny _ [] = False
+myAny f (x:xs) = f x || myAny f xs
+
+myElem :: Eq a => a -> [a] -> Bool
+myElem _ [] = False
+myElem a (x:xs) = a == x || myElem a xs
+
+myElem' :: Eq a => a -> [a] -> Bool
+myElem' a = any (==a)
+
+myReverse :: [a] -> [a]
+myReverse [] = []
+myReverse (x:xs) = (myReverse xs) ++ [x]
+
+squish :: [[a]] -> [a]
+squish [] = []
+squish (x:xs) = x ++ squish xs
+
+
+squishMap :: (a -> [b]) -> [a] -> [b]
+squishMap _ [] = []
+squishMap f (x:xs) = (f x) ++ squishMap f xs
+
+squishAgain :: [[a]] -> [a]
+squishAgain = squishMap id
+
+myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
+myMaximumBy _ [] = error "Empty list"
+myMaximumBy f (x:[]) = x
+myMaximumBy f (x:y:xs)
+    | order == GT = myMaximumBy f (x : xs)
+    | otherwise = myMaximumBy f (y : xs)
+    where order = f x y
+
+myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
+myMinimumBy _ [] = error "Empty list"
+myMinimumBy f (x:[]) = x
+myMinimumBy f (x:y:xs)
+    | order == LT = myMinimumBy f (x : xs)
+    | otherwise = myMinimumBy f (y : xs)
+    where order = f x y
+
+myMaximum :: (Ord a) => [a] -> a
+myMaximum = myMaximumBy compare
+
+myMinimum :: (Ord a) => [a] -> a
+myMinimum = myMinimumBy compare
+
+
+
+-- [1, 40, 9, 12]
+--
