@@ -1,7 +1,5 @@
 module Naturals where
 
--- As natural as any
--- competitive bodybuilder
 data Nat =
     Zero
   | Succ Nat
