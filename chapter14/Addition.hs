@@ -22,7 +22,8 @@ main = hspec $ do
             multiply 10 24 `shouldBe` 240
         it "3 multiplied by 3 is 9" $ do
             multiply 3 3 `shouldBe` 9
-
+        it "5 multiplied by 5 is 30" $ do
+            multiply 5 5 `shouldBe` 30
 
 dividedBy :: Integral a => a -> a -> (a, a)
 dividedBy num denom = go num denom 0
